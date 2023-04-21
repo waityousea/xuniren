@@ -25,7 +25,7 @@
 
 接口测试场景：Postman
 
-![image-20230420105751124](D:\coding\NeRF\xuniren\ky\img\image-20230420105751124.png)
+![image-20230420105751124](.\img\image-20230420105751124.png)
 
 ### 返回视频
 

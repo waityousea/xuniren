@@ -44,8 +44,6 @@ python app.py
 
 接口的输入与输出信息 [Websoket.md](https://github.com/waityousea/xuniren/blob/main/WebSocket.md)
 
-[]( WebSocket.md':include')
-
 虚拟人生成的核心文件
 
 ```python
