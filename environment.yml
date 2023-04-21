@@ -1,4 +1,4 @@
-name: radnerf
+name: xuniren
 channels:
   - pytorch3d
   - pytorch
