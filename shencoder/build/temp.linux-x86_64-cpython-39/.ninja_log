@@ -1,0 +1,4 @@
+# ninja log v5
+0	10660	1678969580307387242	/home/miti/coding/artra/RAD-NeRF/shencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/shencoder/src/bindings.o	16f290f621729b7c
+43	19436	1679024288255618978	/home/miti/coding/artra/RAD-NeRF/shencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/shencoder/src/bindings.o	b428172aca6ce56
+43	48086	1679024316911843166	/home/miti/coding/artra/RAD-NeRF/shencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/shencoder/src/shencoder.o	c6e834df39a60bf4

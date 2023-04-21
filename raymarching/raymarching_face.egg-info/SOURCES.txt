@@ -1,0 +1,7 @@
+setup.py
+/home/miti/coding/artra/RAD-NeRF/raymarching/src/bindings.cpp
+/home/miti/coding/artra/RAD-NeRF/raymarching/src/raymarching.cu
+raymarching_face.egg-info/PKG-INFO
+raymarching_face.egg-info/SOURCES.txt
+raymarching_face.egg-info/dependency_links.txt
+raymarching_face.egg-info/top_level.txt
