@@ -66,3 +66,4 @@ python app.py
 - The NeRF framework is based on [torch-ngp](https://github.com/ashawkey/torch-ngp).
 - The algorithm core come from  [RAD-NeRF](https://github.com/ashawkey/RAD-NeRF).
 
+学术交流可发邮件到邮箱：waityousea@126.com
