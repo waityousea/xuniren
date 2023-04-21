@@ -10,8 +10,6 @@ nvcc_flags = [
     '-U__CUDA_NO_HALF_OPERATORS__', '-U__CUDA_NO_HALF_CONVERSIONS__', '-U__CUDA_NO_HALF2_OPERATORS__',
 ]
 
-
-
 if os.name == "posix":
     c_flags = ['-O3', '-std=c++14']
 elif os.name == "nt":

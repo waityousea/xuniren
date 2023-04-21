@@ -1,5 +1,0 @@
-# ninja log v5
-0	16010	1678966187541227997	/home/miti/coding/artra/RAD-NeRF/gridencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/gridencoder/src/bindings.o	b1eb5f66143f700d
-43	11367	1678969619391947877	/home/miti/coding/artra/RAD-NeRF/gridencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/gridencoder/src/bindings.o	b1eb5f66143f700d
-39	20164	1679024341840036736	/home/miti/coding/artra/RAD-NeRF/gridencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/gridencoder/src/bindings.o	c79795d3afb30fe3
-39	102132	1679024423788664356	/home/miti/coding/artra/RAD-NeRF/gridencoder/build/temp.linux-x86_64-cpython-39/home/miti/coding/artra/RAD-NeRF/gridencoder/src/gridencoder.o	1e22862d7ee2c72a
