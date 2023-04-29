@@ -1,5 +1,5 @@
 # 虚拟人说话头生成
-
+![](img/example.gif)
 # Get Started
 
 ## Installation
@@ -34,13 +34,23 @@ By default, we use [`load`](https://pytorch.org/docs/stable/cpp_extension.html#t
 bash scripts/install_ext.sh
 ```
 
-### **start**
+### **start(独立运行)**
 
 环境配置完成后，启动虚拟人生成器：
 
 ```python
 python app.py
 ```
+### **start（对接fay）**
+环境配置完成后，启动fay对接脚本
+```python
+python fay_connect.py
+```
+![](img/weplay.png)
+
+扫码支助开源开发工作，凭支付单号入qq交流群
+
+
 
 接口的输入与输出信息 [Websoket.md](https://github.com/waityousea/xuniren/blob/main/WebSocket.md)
 
@@ -65,5 +75,6 @@ python app.py
 - The data pre-processing part is adapted from [AD-NeRF](https://github.com/YudongGuo/AD-NeRF).
 - The NeRF framework is based on [torch-ngp](https://github.com/ashawkey/torch-ngp).
 - The algorithm core come from  [RAD-NeRF](https://github.com/ashawkey/RAD-NeRF).
+- Use example [Fay](https://github.com/TheRamU/Fay).
 
 学术交流可发邮件到邮箱：waityousea@126.com

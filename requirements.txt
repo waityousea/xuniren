@@ -26,3 +26,9 @@ configargparse
 
 lpips
 imageio-ffmpeg
+
+flask
+flask_sockets
+pydub
+moviepy
+pygame
