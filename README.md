@@ -41,7 +41,7 @@ bash scripts/install_ext.sh
 ```python
 python app.py
 ```
-### **start（对接fay）**
+### **start（对接fay，在ubuntu 20下完成测试）**
 环境配置完成后，启动fay对接脚本
 ```python
 python fay_connect.py
