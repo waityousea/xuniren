@@ -1,4 +1,4 @@
-# 虚拟人说话头生成
+# 虚拟人说话头生成(照)
 ![](img/example.gif)
 # Get Started
 
@@ -75,6 +75,6 @@ python fay_connect.py
 - The data pre-processing part is adapted from [AD-NeRF](https://github.com/YudongGuo/AD-NeRF).
 - The NeRF framework is based on [torch-ngp](https://github.com/ashawkey/torch-ngp).
 - The algorithm core come from  [RAD-NeRF](https://github.com/ashawkey/RAD-NeRF).
-- Use example [Fay](https://github.com/TheRamU/Fay).
+- Usage example [Fay](https://github.com/TheRamU/Fay).
 
 学术交流可发邮件到邮箱：waityousea@126.com
