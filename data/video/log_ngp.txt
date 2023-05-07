@@ -136,3 +136,13 @@
 ==> Finished Test.
 ==> Start Test, save results to data/video\results
 ==> Finished Test.
+[INFO] Trainer: ngp | 2023-05-07_13-49-22 | cuda | fp16 | data/video
+[INFO] #parameters: 4231701
+[INFO] Loading data/pretrained/ngp_kf.pth ...
+[INFO] loaded model.
+[INFO] load at epoch 152, global step 200336
+[WARN] Failed to load optimizer.
+[INFO] loaded scheduler.
+[INFO] loaded scaler.
+==> Start Test, save results to data/video\results
+==> Finished Test.

@@ -13,12 +13,22 @@ import re
 import numpy as np
 
 import shutil
+import asyncio
+import edge_tts
 app = Flask(__name__)
 sockets = Sockets(app)
 video_list = []
 
 
+async def main(voicename: str, text: str, OUTPUT_FILE):
+    communicate = edge_tts.Communicate(text, voicename)
 
+    with open(OUTPUT_FILE, "wb") as file:
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                file.write(chunk["data"])
+            elif chunk["type"] == "WordBoundary":
+                pass                
 
 
 def send_information(path, ws):
@@ -38,7 +48,16 @@ def send_information(path, ws):
 
 
 
-@sockets.route('/th')
+def txt_to_audio(text_):
+    audio_list = []
+    audio_path = 'data/audio/aud_0.wav'
+    voicename = "zh-CN-YunxiaNeural"
+    # 让我们一起学习。必应由 AI 提供支持，因此可能出现意外和错误。请确保核对事实，并 共享反馈以便我们可以学习和改进!
+    text = text_
+    asyncio.get_event_loop().run_until_complete(main(voicename,text,audio_path))
+    audio_process(audio_path)
+    
+@sockets.route('/dighuman')
 def echo_socket(ws):
     # 获取WebSocket对象
     #ws = request.environ.get('wsgi.websocket')
@@ -50,33 +69,17 @@ def echo_socket(ws):
     else:
         print('建立连接！')
         while True:
-            message = ws.receive()
-            
-            
-
+            message = ws.receive()           
             
             if len(message)==0:
 
                 return '输入信息为空'
-            else:
-                                
-                message=message.replace("\\","/")    
-                print('message:', message,type(message))
-                message = eval(message)
-                aud_dir = message["Data"]["Value"]
-                basedir = ""
-                for i in aud_dir.split("/"):
-                    basedir = os.path.join(basedir,i)
-                basedir = basedir.replace(":",":\\")   
-                num = 1
-                new_path = r'./data/audio/aud_%d.wav'%num  #新路径                
-                old_path = basedir                
-                shutil.copy(old_path, new_path)            
-                audio_path = 'data/audio/aud_%d.wav' % num
-                audio_process(audio_path)
-                audio_path_eo = 'data/audio/aud_%d_eo.npy' % num
-                video_path = 'data/video/results/ngp_%d.mp4' % num
-                output_path = 'data/video/results/output_%d.mp4' % num
+            else:                                
+                txt_to_audio(message)                       
+                audio_path = 'data/audio/aud_0.wav'
+                audio_path_eo = 'data/audio/aud_0_eo.npy'
+                video_path = 'data/video/results/ngp_0.mp4'
+                output_path = 'data/video/results/output_0.mp4'
                 generate_video(audio_path, audio_path_eo, video_path, output_path)
                 video_list.append(output_path)
                 send_information(output_path, ws)

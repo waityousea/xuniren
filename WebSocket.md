@@ -2,30 +2,18 @@
 
 通讯地址：`ws://127.0.0.1:8800/th`
 
-### 发送音频
+### 发送文本
 
 ```
 # 发送给api的message数据是str类型
 {
-    "Topic": "Unreal",
-    "Data": {
-        "Key": "audio",
-        "Value": "C:\samples\sample-1.mp3",
-        "Time": 10,
-        "Type": "interact"
-    }
+	message:"输入的内容或问题"    
 }
 ```
 
-| 参数       | 描述             | 类型  | 是否必须 |
-| ---------- | ---------------- | ----- | -------- |
-| Data.Value | 音频文件绝对路径 | str   | 是       |
-| Data.Time  | 音频时长 (秒)    | float | 否       |
-| Data.Type  | 发言类型         | str   | 否       |
-
 接口测试场景：Postman
 
-![image-20230420105751124](/img/image-20230420105751124.png)
+![image-20230507135349458](./img/image-20230507135349458.png)
 
 ### 返回视频
 

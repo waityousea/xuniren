@@ -50,7 +50,7 @@ def sample_pdf(bins, weights, n_samples, det=False):
 def plot_pointcloud(pc, color=None):
     # pc: [N, 3]
     # color: [N, 3/4]
-    print('[visualize points]', pc.shape, pc.dtype, pc.min(0), pc.max(0))
+    #print('[visualize points]', pc.shape, pc.dtype, pc.min(0), pc.max(0))
     pc = trimesh.PointCloud(pc, color)
     # axis
     axes = trimesh.creation.axis(axis_length=4)

@@ -32,3 +32,4 @@ flask_sockets
 pydub
 moviepy
 pygame
+edge-tts

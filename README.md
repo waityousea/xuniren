@@ -1,5 +1,5 @@
 # 虚拟人说话头生成(照片虚拟人实时驱动)
-![](img/example.gif)
+![](./img/example.gif)
 # Get Started
 
 ## Installation
@@ -22,15 +22,55 @@ or
 ## environment.yml中的pytorch使用的1.12和cuda 11.3
 conda env create -f environment.yml 
 ## install pytorch3d
+#ubuntu/mac
 pip install "git+https://github.com/facebookresearch/pytorch3d.git"
 ```
 
-### Build extension (optional)
+**windows安装pytorch3d**
+
+- gcc & g++ ≥ 4.9
+
+在windows中，需要安装gcc编译器，可以根据需求自行安装，例如采用MinGW
+
+以下安装步骤来自于[pytorch3d](https://github.com/facebookresearch/pytorch3d/blob/main/INSTALL.md)官方, 可以根据需求进行选择。
+
+```python
+conda create -n pytorch3d python=3.9
+conda activate pytorch3d
+conda install pytorch=1.13.0 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
+conda install -c fvcore -c iopath -c conda-forge fvcore iopath
+```
+
+对于 CUB 构建时间依赖项，仅当您的 CUDA 早于 11.7 时才需要，如果您使用的是 conda，则可以继续
+
+```
+conda install -c bottler nvidiacub
+```
+
+```
+# Demos and examples
+conda install jupyter
+pip install scikit-image matplotlib imageio plotly opencv-python
+
+# Tests/Linting
+pip install black usort flake8 flake8-bugbear flake8-comprehensions
+```
+
+任何必要的补丁后，你可以去“x64 Native Tools Command Prompt for VS 2019”编译安装
+
+```
+git clone https://github.com/facebookresearch/pytorch3d.git
+cd pytorch3d
+python setup.py install
+```
+
+### Build extension (optional) 
 
 By default, we use [`load`](https://pytorch.org/docs/stable/cpp_extension.html#torch.utils.cpp_extension.load) to build the extension at runtime. However, this may be inconvenient sometimes. Therefore, we also provide the `setup.py` to build each extension:
 
 ```
 # install all extension modules
+# notice: 该模块必须安装，在windows下，建议采用vs2019的x64 Native Tools Command Prompt for VS 2019命令窗口安装
 bash scripts/install_ext.sh
 ```
 

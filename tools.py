@@ -565,16 +565,12 @@ def video_pre_process():
     opt.cuda_ray = True
     opt.torso = True
     # assert opt.cuda_ray, "Only support CUDA ray mode."
-
-    print(opt)
-
     seed_everything(opt.seed)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     model = NeRFNetwork(opt)
 
-    print(model)
     trainer = Trainer('ngp', opt, model, device=device, workspace=opt.workspace, fp16=opt.fp16, metrics=[],
                       use_checkpoint=opt.ckpt)
     opt_vid = opt
