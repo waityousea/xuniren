@@ -1,5 +1,5 @@
 # 虚拟人说话头生成(照片虚拟人实时驱动)
-![](./img/example.gif)
+![](/img/example.gif)
 # Get Started
 
 ## Installation
