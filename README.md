@@ -64,13 +64,14 @@ cd pytorch3d
 python setup.py install
 ```
 
-### Build extension (optional) 
+### Build extension 
 
 By default, we use [`load`](https://pytorch.org/docs/stable/cpp_extension.html#torch.utils.cpp_extension.load) to build the extension at runtime. However, this may be inconvenient sometimes. Therefore, we also provide the `setup.py` to build each extension:
 
 ```
 # install all extension modules
-# notice: 该模块必须安装，在windows下，建议采用vs2019的x64 Native Tools Command Prompt for VS 2019命令窗口安装
+# notice: 该模块必须安装。
+# 在windows下，建议采用vs2019的x64 Native Tools Command Prompt for VS 2019命令窗口安装
 bash scripts/install_ext.sh
 ```
 
