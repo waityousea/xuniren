@@ -5,7 +5,7 @@ from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 _src_path = os.path.dirname(os.path.abspath(__file__))
 
 nvcc_flags = [
-    '-O3', '-std=c++14',
+    # '-O3', '-std=c++14',
     '-U__CUDA_NO_HALF_OPERATORS__', '-U__CUDA_NO_HALF_CONVERSIONS__', '-U__CUDA_NO_HALF2_OPERATORS__',
 ]
 
@@ -45,6 +45,6 @@ setup(
         ),
     ],
     cmdclass={
-        'build_ext': BuildExtension,
+        'build_ext': BuildExtension.with_options(use_ninja=False),
     }
 )

@@ -434,7 +434,7 @@ def video_pre_process():
     parser = argparse.ArgumentParser()
     #parser.add_argument('--pose', type=str, default="data/kh.json", help="transforms.json, pose source")
     parser.add_argument('--pose', type=str, default="data/kf.json", help="transforms.json, pose source")
-    parser.add_argument('--bg_img', type=str, default='white', help="bg.jpg, background image source")
+    parser.add_argument('--bg_img', type=str, default='data/bg.jpg', help="bg.jpg, background image source")
 
     parser.add_argument('-O', action='store_true', help="equals --fp16 --cuda_ray --exp_eye")
     # parser.add_argument('--test', action='store_true', help="test mode (load model and test dataset)")

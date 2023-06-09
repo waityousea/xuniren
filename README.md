@@ -1,5 +1,12 @@
-# 虚拟人说话头生成(照片虚拟人实时驱动)
+# 虚拟人说话头生成(NeRF虚拟人实时驱动)--尽情打造自己的call annie吧
 ![](/img/example.gif)
+
+xuniren windows安装教程：[一步步教学在 Windows 下面安装 pytorch3d 来部署 xuniren 这个项目 - 坤坤 - 博客园 (cnblogs.com)](https://www.cnblogs.com/dm521/p/17469967.html)
+
+模型训练教程：[(278条消息) xuniren（Fay数字人开源社区项目）NeRF模型训练教程_郭泽斌之心的博客-CSDN博客](https://blog.csdn.net/aa84758481/article/details/131135823)
+
+
+
 # Get Started
 
 ## Installation
@@ -72,7 +79,7 @@ By default, we use [`load`](https://pytorch.org/docs/stable/cpp_extension.html#t
 # install all extension modules
 # notice: 该模块必须安装。
 # 在windows下，建议采用vs2019的x64 Native Tools Command Prompt for VS 2019命令窗口安装
-bash scripts/install_ext.sh
+bash scripts/install_ext.sh(建议复制出来单独安装)
 ```
 
 ### **start(独立运行)**
@@ -82,8 +89,8 @@ bash scripts/install_ext.sh
 ```python
 python app.py
 ```
-### **start（对接fay，在ubuntu 20下完成测试）**
-环境配置完成后，启动fay对接脚本
+### **start（对接fay，在ubuntu 20.04及windows10下完成测试）**
+环境配置完成后，启动fay对接脚本(无须启动app.py)
 ```python
 python fay_connect.py
 ```

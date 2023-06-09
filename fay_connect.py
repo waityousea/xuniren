@@ -39,7 +39,7 @@ def connet_fay():
             new_path = r'./data/audio/aud_%d.wav'%num  #新路径                
             old_path = basedir                
  
-            convert_mp3_to_wav("/" + old_path, new_path) 
+            convert_mp3_to_wav(old_path, new_path) 
 
             audio_path = 'data/audio/aud_%d.wav' % num
             audio_process(audio_path)

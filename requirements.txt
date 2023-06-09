@@ -33,3 +33,4 @@ pydub
 moviepy
 pygame
 edge-tts
+websocket-client
