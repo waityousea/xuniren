@@ -18,10 +18,23 @@ from pydub import AudioSegment
 from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips
 import cv2
 import pygame
+import hashlib
 
 video_list = []
 
 fay_ws = None
+video_cache = {}
+
+#增加MD5音频标记，避免重复生成视频
+def hash_file_md5(filepath):
+    md5 = hashlib.md5()
+    with open(filepath, 'rb') as f:
+        while True:
+            data = f.read(65536)  # Read in 64kb chunks
+            if not data:
+                break
+            md5.update(data)
+    return md5.hexdigest()
 
 def connet_fay():
     global video_list
@@ -40,14 +53,19 @@ def connet_fay():
             old_path = basedir                
  
             convert_mp3_to_wav(old_path, new_path) 
-
-            audio_path = 'data/audio/aud_%d.wav' % num
-            audio_process(audio_path)
-            audio_path_eo = 'data/audio/aud_%d_eo.npy' % num
-            video_path = 'data/video/results/ngp_%d.mp4' % num
-            output_path = 'data/video/results/output_%d.mp4' % num
-            generate_video(audio_path, audio_path_eo, video_path, output_path)
-            video_list.append({"video" : output_path, "audio" : new_path})
+            audio_hash = hash_file_md5(new_path)
+            if audio_hash in video_cache:
+                video_list.append({"video": video_cache[audio_hash], "audio": new_path})
+                print("视频已存在，直接播放。")
+            else:
+                audio_path = 'data/audio/aud_%d.wav' % num
+                audio_process(audio_path)
+                audio_path_eo = 'data/audio/aud_%d_eo.npy' % num
+                video_path = 'data/video/results/ngp_%d.mp4' % num
+                output_path = 'data/video/results/output_%d.mp4' % num
+                generate_video(audio_path, audio_path_eo, video_path, output_path)
+                video_list.append({"video" : output_path, "audio" : new_path})
+                video_cache[audio_hash] = output_path
 
     def on_error(ws, error):
         print(f"Fay Error: {error}")
@@ -102,8 +120,8 @@ def play_video():
                 ret, frame = cap.read()
             if frame is not None:#没有传音频过来时显示train.mp4的第一帧，建议替换成大约1秒左右的视频
                 cv2.imshow('Fay-2d', frame)
-                # 等待 33 毫秒
-                cv2.waitKey(33)
+                # 等待 38 毫秒
+                cv2.waitKey(38)
             if not ret:
                 break
 
