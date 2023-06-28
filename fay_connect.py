@@ -38,6 +38,7 @@ def hash_file_md5(filepath):
 
 def connet_fay():
     global video_list
+    global video_cache
     def on_message(ws, message):
         if "audio" in message:
             message_dict = json.loads(message)
