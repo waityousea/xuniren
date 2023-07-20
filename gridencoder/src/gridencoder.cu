@@ -19,11 +19,19 @@
 
 
 // just for compatability of half precision in AT_DISPATCH_FLOATING_TYPES_AND_HALF... program will never reach here!
- __device__ inline at::Half atomicAdd(at::Half *address, at::Half val) {
+#if !defined(__CUDA_ARCH__) || __CUDA_ARCH__ >= 600
+__device__ inline at::Half atomicAdd(at::Half *address, at::Half val)
+{
   // requires CUDA >= 10 and ARCH >= 70
   // this is very slow compared to float or __half2, never use it.
   //return atomicAdd(reinterpret_cast<__half*>(address), val);
 }
+#else
+// allow some old PC/laptop(__CUDA_ARCH__ < 600) to run this project
+__device__ inline double atomicAdd(double* a, double b) { return b; }
+__device__ inline __half2 atomicAdd(__half2 *a, __half2 b) { return b; }
+__device__ inline float atomicAdd(c10::Half *a, float b) { return b; }
+#endif
 
 
 template <typename T>
