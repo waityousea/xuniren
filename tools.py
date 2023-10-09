@@ -580,6 +580,7 @@ def video_pre_process():
 
 
 def video_process(opt, trainer, model, dir_path):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     test_loader = NeRFDataset(opt, device=device, type='test').dataloader()
     # temp fix: for update_extra_states
     model.aud_features = test_loader._data.auds
