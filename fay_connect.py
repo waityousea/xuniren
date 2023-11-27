@@ -39,6 +39,8 @@ def hash_file_md5(filepath):
 def connet_fay():
     global video_list
     global video_cache
+    global fay_ws
+    
     def on_message(ws, message):
         if "audio" in message:
             message_dict = json.loads(message)
@@ -70,25 +72,31 @@ def connet_fay():
 
     def on_error(ws, error):
         print(f"Fay Error: {error}")
-        fay_ws = None
-        time.sleep(5)
-        connect()
+        reconnect()
 
     def on_close(ws):
         print("Fay Connection closed")
-        fay_ws = None
+        reconnect()
 
     def on_open(ws):
         print("Fay Connection opened")
 
     def connect():
+        global fay_ws
         ws_url = "ws://127.0.0.1:10002"
         fay_ws = websocket.WebSocketApp(ws_url,
-                                    on_message=on_message,
-                                    on_error=on_error,
-                                    on_close=on_close)
+                                        on_message=on_message,
+                                        on_error=on_error,
+                                        on_close=on_close)
         fay_ws.on_open = on_open
         fay_ws.run_forever()
+
+    def reconnect():
+        global fay_ws
+        fay_ws = None
+        time.sleep(5)  # 等待一段时间后重连
+        connect()
+
     connect()
 
 def convert_mp3_to_wav(input_file, output_file):
