@@ -31,6 +31,8 @@ from packaging import version as pver
 import imageio
 import lpips
 
+import video_stream
+
 def custom_meshgrid(*args):
     # ref: https://pytorch.org/docs/stable/generated/torch.meshgrid.html?highlight=meshgrid#torch.meshgrid
     if pver.parse(torch.__version__) < pver.parse('1.10'):
@@ -934,7 +936,7 @@ class Trainer(object):
 
         pbar = tqdm.tqdm(total=len(loader) * loader.batch_size, bar_format='{percentage:3.0f}% {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}]')
         self.model.eval()
-
+        video_stream.set_video_len(int(len(loader) * loader.batch_size))
         all_preds = []
 
         with torch.no_grad():
@@ -961,7 +963,8 @@ class Trainer(object):
                 if write_image:
                     imageio.imwrite(path, pred)
                     imageio.imwrite(path_depth, pred_depth)
-
+                #保存视频流
+                video_stream.write([pred])
                 all_preds.append(pred)
 
                 pbar.update(loader.batch_size)
@@ -1033,6 +1036,8 @@ class Trainer(object):
         
         return outputs
     
+
+
     # [GUI] test on a single image
     def test_gui(self, pose, intrinsics, W, H, auds, eye=None, index=0, bg_color=None, spp=1, downscale=1):
         
@@ -1130,7 +1135,7 @@ class Trainer(object):
             'image': pred,
             'depth': pred_depth,
         }
-
+        
         return outputs
 
     def train_one_epoch(self, loader):

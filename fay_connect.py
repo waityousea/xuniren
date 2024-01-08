@@ -19,9 +19,10 @@ from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips
 import cv2
 import pygame
 import hashlib
+import video_stream
 
 video_list = []
-
+audio_paths = []
 fay_ws = None
 video_cache = {}
 
@@ -40,7 +41,8 @@ def connet_fay():
     global video_list
     global video_cache
     global fay_ws
-    
+    global audio_paths
+
     def on_message(ws, message):
         if "audio" in message:
             message_dict = json.loads(message)
@@ -57,18 +59,21 @@ def connet_fay():
  
             convert_mp3_to_wav(old_path, new_path) 
             audio_hash = hash_file_md5(new_path)
-            if audio_hash in video_cache:
-                video_list.append({"video": video_cache[audio_hash], "audio": new_path})
-                print("视频已存在，直接播放。")
-            else:
-                audio_path = 'data/audio/aud_%d.wav' % num
-                audio_process(audio_path)
-                audio_path_eo = 'data/audio/aud_%d_eo.npy' % num
-                video_path = 'data/video/results/ngp_%d.mp4' % num
-                output_path = 'data/video/results/output_%d.mp4' % num
-                generate_video(audio_path, audio_path_eo, video_path, output_path)
-                video_list.append({"video" : output_path, "audio" : new_path})
-                video_cache[audio_hash] = output_path
+            audio_paths.append(new_path)
+            # if audio_hash in video_cache:
+            #     video_list.append({"video": video_cache[audio_hash], "audio": new_path})
+            #     ret, frame = cap.read()
+
+            #     print("视频已存在，直接播放。")
+            # else:
+            audio_path = 'data/audio/aud_%d.wav' % num
+            audio_process(audio_path)
+            audio_path_eo = 'data/audio/aud_%d_eo.npy' % num
+            video_path = 'data/video/results/ngp_%d.mp4' % num
+            output_path = 'data/video/results/output_%d.mp4' % num
+            generate_video(audio_path, audio_path_eo, video_path, output_path)
+            video_list.append({"video" : output_path, "audio" : new_path})
+            video_cache[audio_hash] = output_path
 
     def on_error(ws, error):
         print(f"Fay Error: {error}")
@@ -106,33 +111,34 @@ def convert_mp3_to_wav(input_file, output_file):
 
 def play_video():
     global video_list
-    video_path = None
+    global audio_paths
     audio_path = None
-    ret = None
     frame = None
+    _, frame = cv2.VideoCapture("data/pretrained/train.mp4").read()
     while True:
-        if len(video_list) > 0:
-            video_path = video_list[0].get("video")
-            audio_path = video_list[0].get("audio")
-            cap = cv2.VideoCapture(video_path)  # 打开视频文件
-            video_list.pop(0)
+        if video_stream.get_idle() > int(video_stream.get_video_len() / 3):
+            if len(audio_paths)>0:
+                audio_path = audio_paths.pop(0)
+                print(audio_path)
+                threading.Thread(target=play_audio, args=[audio_path]).start()  # play audio
+            i = video_stream.get_video_len()
+            video_stream.set_video_len(0)
+            #循环播放视频帧
+            while True:
+                imgs = video_stream.read()
+                if len(imgs) > 0:
+                    frame = imgs[0]
+                    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+                    cv2.imshow('Fay-2d', frame)
+                    # 等待 38 毫秒
+                    cv2.waitKey(38)
+                    i = i - 1
+                elif i == 0:
+                    break
         else:
-            audio_path = None
-            cap = None
-            _, frame = cv2.VideoCapture("data/pretrained/train.mp4").read()
-
-        if audio_path:
-            threading.Thread(target=play_audio, args=[audio_path]).start()  # play audio
-        # 循环播放视频帧
-        while True:
-            if cap:
-                ret, frame = cap.read()
-            if frame is not None:#没有传音频过来时显示train.mp4的第一帧，建议替换成大约1秒左右的视频
-                cv2.imshow('Fay-2d', frame)
-                # 等待 38 毫秒
-                cv2.waitKey(38)
-            if not ret:
-                break
+            cv2.imshow('Fay-2d', frame)
+            # 等待 38 毫秒
+            cv2.waitKey(38)
 
 def play_audio(audio_file):
     pygame.mixer.init()
@@ -145,7 +151,7 @@ if __name__ == '__main__':
 
     audio_pre_process()
     video_pre_process()
-
+    video_stream.start()
     threading.Thread(target=connet_fay, args=[]).start()
     play_video()
 
